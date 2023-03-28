@@ -1,0 +1,179 @@
+import java.util.Scanner;
+
+public class batalhanaval {
+
+    public static void main(String[] args) {
+        int x, y;
+        int i;
+        int j1vida = 5;
+        int j2vida = 5;
+        Scanner scanner = new Scanner(System.in);
+        char jogador1tabuleiro[][] = new char[5][5];
+        char jogador2tabuleiro[][] = new char[5][5];
+        char tiroJogador1tabuleiro[][] = new char[5][5];
+        char tiroJogador2tabuleiro[][] = new char[5][5];
+
+        for (i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                jogador1tabuleiro[i][j] = '-';
+                jogador2tabuleiro[i][j] = '-';
+                tiroJogador1tabuleiro[i][j] = '-';
+                tiroJogador2tabuleiro[i][j] = '-';
+            }
+        }
+        System.out.println("Bem-vindo ao Batalha Naval!");
+        // player1
+        System.out.println("Jogador1, escolha o posicionamento do seu navio, cinco deles ('x' and 'y' position, from 0 to 4)");
+
+        for (i = 0; i < 5; i++) {
+            x = scanner.nextInt();
+            y = scanner.nextInt();
+            while (x > 4 || x < 0 || y > 4 || y < 0) {
+                System.out.println("Posições erradas, tente novamente...");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+            }
+            if ((jogador1tabuleiro[x][y] == '@')) {
+                System.out.println("Já existe um navio nesta posição.");
+                i = i - 1;
+            }
+            else if ((x <= 4 && x >= 0) && (y <= 4 && y >= 0)) {
+                jogador1tabuleiro[x][y] = '@';
+            } else {
+                System.out.println("Posições erradas, tente novamente...");
+                i = i - 1;
+            }
+        }
+
+        System.out.println("  0 1 2 3 4");
+
+        for (i = 0; i < 5; i++) {
+            System.out.printf("%d ", i);
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("%c ", jogador1tabuleiro[i][j]);
+            }
+            System.out.println();
+        }
+        // player2
+        System.out.println();
+        System.out.println("Jogador2, escolha o posicionamento do seu navio, cinco deles ('x' and 'y' position, from 0 to 4)");
+
+        for (i = 0; i < 5; i++) {
+            x = scanner.nextInt();
+            y = scanner.nextInt();
+            while (x > 4 || x < 0 || y > 4 || y < 0) {
+                System.out.println("Posições erradas, tente novamente...");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+            }
+            if ((jogador2tabuleiro[x][y] == '@')) {
+                System.out.println("Já existe um navio nesta posição.");
+                i = i - 1;
+            }
+            else if ((x <= 4 && x >= 0) && (y <= 4 && y >= 0)) {
+                jogador2tabuleiro[x][y] = '@';
+            } else {
+                System.out.println("Posições erradas, tente novamente...");
+                i = i - 1;
+            }
+        }
+        System.out.println();
+        System.out.println("  0 1 2 3 4");
+
+        for (i = 0; i < 5; i++) {
+            System.out.printf("%d ", i);
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("%c ", jogador2tabuleiro[i][j]);
+            }
+            System.out.println();
+        }
+
+        while (j1vida != 0 && j2vida != 0) {
+            // parte player1
+            System.out.println("Jogador 1, escolha onde atirar com a bazuca");
+            x = scanner.nextInt();
+            y = scanner.nextInt();
+
+            if ((x <= 4 && x >= 0) && (y <= 4 && y >= 0)) {
+                while (jogador2tabuleiro[x][y] == 'O' || jogador2tabuleiro[x][y] == 'X') {
+                    System.out.println("Você já atirou aqui, tente novamente...");
+                    x = scanner.nextInt();
+                    y = scanner.nextInt();
+                    while (x > 4 || x < 0 || y > 4 || y < 0) {
+                        System.out.println("Posições erradas, tente novamente...");
+                        x = scanner.nextInt();
+                        y = scanner.nextInt();
+                    }
+                }
+                if (jogador2tabuleiro[x][y] == '@') {
+                    System.out.println("Voce acertou");
+                    j2vida -= 1;
+                    jogador2tabuleiro[x][y] = 'X';
+                    tiroJogador1tabuleiro[x][y] = 'X';
+                }
+                if (jogador2tabuleiro[x][y] == '-') {
+                    System.out.println("Voce errou");
+                    jogador2tabuleiro[x][y] = 'O';
+                    tiroJogador1tabuleiro[x][y] = 'O';
+                }
+                System.out.println("  0 1 2 3 4");
+                for (i = 0; i < 5; i++) {
+                    System.out.printf("%d ", i);
+                    for (int j = 0; j < 5; j++) {
+                        System.out.printf("%c ", tiroJogador1tabuleiro[i][j]);
+                    }
+                    System.out.println();
+                }
+
+                System.out.println("Jogador 2, escolha onde atirar com a bazuca");
+                x = scanner.nextInt();
+                y = scanner.nextInt();
+                while (x > 4 || x < 0 || y > 4 || y < 0) {
+                    System.out.println("Posições erradas, tente novamente...");
+                    x = scanner.nextInt();
+                    y = scanner.nextInt();
+                }
+
+                while (jogador1tabuleiro[x][y] == 'O' || jogador1tabuleiro[x][y] == 'X') {
+                    System.out.println("Você já atirou aqui, tente novamente...");
+                    x = scanner.nextInt();
+                    y = scanner.nextInt();
+                    while (x > 4 || x < 0 || y > 4 || y < 0) {
+                        System.out.println("Posições erradas, tente novamente...");
+                        x = scanner.nextInt();
+                        y = scanner.nextInt();
+                    }
+                }
+                if (jogador1tabuleiro[x][y] == '@') {
+                    System.out.println("Voce acertou");
+                    j1vida -= 1;
+                    jogador1tabuleiro[x][y] = 'X';
+                    tiroJogador2tabuleiro[x][y] = 'X';
+                }
+                if (jogador1tabuleiro[x][y] == '-') {
+                    System.out.println("Voce errou");
+                    jogador1tabuleiro[x][y] = 'O';
+                    tiroJogador2tabuleiro[x][y] = 'O';
+                }
+                System.out.println("  0 1 2 3 4");
+                for (i = 0; i < 5; i++) {
+                    System.out.printf("%d ", i);
+                    for (int j = 0; j < 5; j++) {
+                        System.out.printf("%c ", tiroJogador2tabuleiro[i][j]);
+                    }
+                    System.out.println();
+                }
+            }else {
+                System.out.println("Posições erradas, tente novamente...");
+            }
+
+        }
+        if(j1vida == 0){
+            System.out.println("O Jogador 2 VENCEU");
+        }
+        else{
+            System.out.println("O Jogador 1 VENCEU");
+        }
+        scanner.close();
+    }
+                      }
